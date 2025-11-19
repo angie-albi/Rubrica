@@ -91,7 +91,7 @@ Poiché il progetto è configurato come progetto **Eclipse** (include `.project`
 
 1.  Clona questa repository sul tuo computer:
     ```bash
-    git clone [https://github.com/TUO-USERNAME/NOME-REPO.git](https://github.com/TUO-USERNAME/NOME-REPO.git)
+    git clone https://github.com/angie-albi/Rubrica.git   
     ```
 2.  Apri **Eclipse**.
 3.  Vai su `File` > `Open Projects from File System...`.
@@ -102,4 +102,4 @@ Poiché il progetto è configurato come progetto **Eclipse** (include `.project`
 
 ### 👤 Autore
 
-Sviluppato da **[Angie Albitres]**
+Sviluppato da **Angie Albitres**
