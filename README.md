@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>📒 Rubrica Digitale (Java)</h1>
+  <h1>📒 Rubrica Digitale</h1>
   <p>
     Un'applicazione Java efficiente per la gestione e l'organizzazione dei contatti personali.
     <br />
