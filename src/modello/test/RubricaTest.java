@@ -67,7 +67,7 @@ class RubricaTest {
 	
 	@Test
 	void testAggiungiStringaPresente() {
-		Rubrica r1= new Rubrica("Amici", 5);
+		r1= new Rubrica("Amici", 5);
 		r1.aggiungi("Marco", "+39 1231231234");
 		r1.aggiungi("Giorgio", "2342342345");
 		r1.aggiungi("Giulia", "3453453456");
