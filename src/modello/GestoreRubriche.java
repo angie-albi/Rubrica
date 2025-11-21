@@ -17,33 +17,32 @@ public class GestoreRubriche {
 	}
 	
 	// Crea una nuova Rubrica
-	public Rubrica createRubrica(String nome, int max_dim) {
-		Rubrica r= new Rubrica(nome, max_dim);
-		return r;
+	public void createRubrica(String nome, int max_dim) {
+		Rubrica r = new Rubrica(nome, max_dim);
+		elencoRub.add(r);
 	}
 	
-	// Cerca una Rubrica
-	public ArrayList<Rubrica> searchRubrica(String prefisso) {
-		ArrayList<Rubrica> ris = new ArrayList<Rubrica>();
+	// Seleziona una Rubrica
+	public Rubrica selezionaRubrica(String nome) {
 		
 		for (Rubrica r: elencoRub) {
-			if(r.getNome().toLowerCase().startsWith(prefisso.toLowerCase())) {
-				ris.add(r);
+			if(r.getNome().equals(nome)) {
+				return r;
 			}
 		}
 		
-		return ris;
+		return null;
 	}
 	
-	// Elimina Rubrica/Rubriche
-	public boolean deleteRubrica(String prefisso) {
-		ArrayList <Rubrica> ris = searchRubrica(prefisso);
+	// Elimina Rubrica
+	public boolean deleteRubrica(String nome) {
+		Rubrica ris = selezionaRubrica(nome);
 		
-		if(ris.isEmpty()) {
+		if(ris == null) {
 			return false;
 		}
 		
-		return elencoRub.removeAll(ris);
+		return elencoRub.remove(ris);
 	}
 	
 	// Modifica nome Rubrica

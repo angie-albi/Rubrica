@@ -28,10 +28,12 @@ public class Contatto {
 	// Modifica Nome di un contatto
 	
 	
+
+	
 	// Stampa in modo leggibile
 	@Override
     public String toString() {
-        return nome + " : " + numTel;
+        return nome + ": " + numTel;
     }
 	
 }
