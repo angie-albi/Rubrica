@@ -22,12 +22,12 @@ public class Contatto {
 		return numTel;
 	}
 	
-	// Modifica Numero Telefonico di un contatto
+	// Modifica Nome di un contatto
 	public void setNome(String nuovoNome) {
 		nome = nuovoNome;
 	}
 	
-	// Modifica Nome di un contatto
+	// Modifica Numero Telefonico di un contatto
 	public void setNumero(String nuovoNumero) {
 		numTel = nuovoNumero;
 	}

@@ -83,16 +83,14 @@ public class Rubrica {
 
 	// Aggiorna un contatto esistente
 	public boolean modificaContatto(String vecchioNome, String nuovoNome, String nuovoNumero) {
-		ArrayList<Contatto> trovati = ricerca(vecchioNome);
-		if (trovati.isEmpty()) {
-			return false;
-		}
-
-		Contatto c = trovati.get(0); // Assumiamo che sia il primo
-
-		c.setNome(nuovoNome);
-		c.setNumero(nuovoNumero);
-		return true;
+	    for (Contatto c : contatti) {
+	        if (c.getNome().equalsIgnoreCase(vecchioNome)) {
+	            c.setNome(nuovoNome);
+	            c.setNumero(nuovoNumero);
+	            return true; 
+	        }
+	    }
+	    return false;
 	}
 
 }
