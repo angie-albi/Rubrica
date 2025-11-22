@@ -185,6 +185,17 @@ class RubricaTest {
 		r1.aggiungi("Marco", "+39 1231231234");
 		boolean ris = r1.modificaContatto("Marco", "Mirco", "1231231234");
 		assertEquals(true, ris);
+		
+		assertEquals(0, r1.ricerca("Marco").size());
+		assertEquals(1, r1.ricerca("Mirco").size());
+		assertEquals("1231231234", r1.ricerca("Mirco").get(0).getNumeroTel());
+	}
+	
+	@Test
+	void testModificaContattoInesistente() {
+		r1.aggiungi("Marco", "+39 1231231234");
+		boolean ris = r1.modificaContatto("Giorgio", "Giorgia", "1111111111");
+		assertEquals(false, ris);
 	}
 	
 	@Test

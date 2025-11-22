@@ -86,4 +86,23 @@ class GestoreRubricheTest {
 		ris = R.getElenco();
 		assertEquals(3, ris.size());
 	}
+	
+	@Test
+	void testRinominaRubrica() {
+		R.createRubrica("Amici", 5);
+		
+		boolean ris = R.rinominaRubrica("Amici", "Amici Stretti");
+		assertEquals(true, ris);
+		
+		assertEquals(null, R.selezionaRubrica("Amici"));
+		
+		Rubrica amiciStretti = R.selezionaRubrica("Amici Stretti");
+		assertEquals("Amici Stretti", amiciStretti.getNome());
+	}
+	
+	@Test
+	void testRinominaInesistente() {
+		boolean esito = R.rinominaRubrica("NonEsiste", "NuovoNome");
+		assertFalse(esito);
+	}
 }

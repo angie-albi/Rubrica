@@ -36,12 +36,14 @@ class ContattoTest {
 	void testSetNome() {
 		c1.setNome("Mirco");
 		assertEquals("Mirco", c1.getNome());
+		assertEquals("Mirco: +39 1231231234", c1.toString());
 	}
 	
 	@Test
 	void testSetNumero() {
-		c1.setNome("1231231234");
-		assertEquals("1231231234", c1.getNome());
+		c1.setNumero("1231231234");
+		assertEquals("1231231234", c1.getNumeroTel());
+		assertEquals("Marco: 1231231234", c1.toString());
 	}
 	
 	@Test
