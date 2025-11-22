@@ -12,7 +12,7 @@ public class RubricaGUI extends JFrame{
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			setBounds(100, 100, 450, 300);
-			setTitle("RUBRICA");
+			setTitle("Rubrica");
 			
 			JPanel rubricaPanel = (JPanel) new RubricaPanel(model);
 			setContentPane(rubricaPanel);

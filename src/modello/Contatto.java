@@ -11,7 +11,7 @@ public class Contatto {
 		this.numTel = numeroTel;
 	}
 
-	// FUNZIONI
+	// METODI
 	// Restiruisce il nome del contatto
 	public String getNome() {
 		return nome;
