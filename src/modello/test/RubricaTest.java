@@ -180,4 +180,18 @@ class RubricaTest {
 		assertEquals(0, r1.numEl());
 	}
 	
+	@Test
+	void testModificaContatto() {
+		r1.aggiungi("Marco", "+39 1231231234");
+		boolean ris = r1.modificaContatto("Marco", "Mirco", "1231231234");
+		assertEquals(true, ris);
+	}
+	
+	@Test
+	void testModificaNome() {
+		r1.setNome("Amici Stretti");
+		
+		assertEquals("Amici Stretti", r1.getNome());
+	}
+	
 }

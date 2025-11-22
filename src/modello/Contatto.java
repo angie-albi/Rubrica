@@ -23,12 +23,14 @@ public class Contatto {
 	}
 	
 	// Modifica Numero Telefonico di un contatto
-	
+	public void setNome(String nuovoNome) {
+		nome = nuovoNome;
+	}
 	
 	// Modifica Nome di un contatto
-	
-	
-
+	public void setNumero(String nuovoNumero) {
+		numTel = nuovoNumero;
+	}
 	
 	// Stampa in modo leggibile
 	@Override

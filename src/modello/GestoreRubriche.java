@@ -46,6 +46,15 @@ public class GestoreRubriche {
 	}
 	
 	// Modifica nome Rubrica
+	public boolean rinominaRubrica(String vecchioNome, String nuovoNome) {
+		Rubrica r = selezionaRubrica(vecchioNome);
+		if (r == null) {
+			return false;
+		}
+		
+		r.setNome(nuovoNome);
+		return true;
+	}
 
 	
 	// Numero rubriche presenti

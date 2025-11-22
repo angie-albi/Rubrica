@@ -27,6 +27,11 @@ public class Rubrica{
 		return nomeRub;
 	}
 	
+	// Modifica nome della Rubrica
+	public void setNome(String nuovoNome) {
+		nomeRub = nuovoNome;
+	}
+	
 	// Restituisce tutti i contatti
 	public ArrayList<Contatto> getContatti() {
 		return contatti;
@@ -75,6 +80,20 @@ public class Rubrica{
 			return false;
 		}
 		return contatti.removeAll(elimina);
+	}
+	
+	// Aggiorna un contatto esistente
+	public boolean modificaContatto(String vecchioNome, String nuovoNome, String nuovoNumero) {
+	    ArrayList<Contatto> trovati = ricerca(vecchioNome);
+	    if (trovati.isEmpty()) {
+	    	return false;
+	    }
+	    
+	    Contatto c = trovati.get(0); //Assumiamo che sia il primo
+	    
+	    c.setNome(nuovoNome);
+	    c.setNumero(nuovoNumero);
+	    return true;
 	}
 	
 }
