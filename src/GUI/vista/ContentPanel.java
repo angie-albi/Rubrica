@@ -21,45 +21,39 @@ public class ContentPanel extends JPanel {
 		this.model = model;
 		setLayout(new BorderLayout());
 
-		// Area di testo non modificabile dall'utente
-		areaContatti = new JTextArea(10, 20);
+		// Area di testo
+		areaContatti = new JTextArea(15, 30);
 		areaContatti.setEditable(false);
-		areaContatti.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+		areaContatti.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-		// Scorrimento 
-		JScrollPane scrollPane = new JScrollPane(areaContatti);
-        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		// ScrollPane (Barra laterale)				
+		JScrollPane scroll = new JScrollPane(areaContatti);
         
-        // Titolo
-		JLabel label = new JLabel("Rubrica " + model.getNome());
-		add(areaContatti, BorderLayout.CENTER);
+		// Titolo
+		JLabel label = new JLabel("Rubrica: " + model.getNome());
+		label.setHorizontalAlignment(JLabel.CENTER);
 		
+		// Aggiunta componenti
 		add(label, BorderLayout.NORTH);
-		add(scrollPane, BorderLayout.CENTER);
+		add(scroll, BorderLayout.CENTER);
 
-		// Corichiamo i contatti
+		// Carichiamo i contatti
 		aggiorna();
 	}
 
 	public void aggiorna() {
-		// Mostra tutti i contatti tramite la ricerca
+		areaContatti.setText(""); 
+		
 		ArrayList<Contatto> contatti = model.ricerca("");
 
 		if (contatti.isEmpty()) {
             areaContatti.setText("\n  (Nessun contatto presente)");
         } else {
-            // Ciclo for-each: per ogni Contatto 'c' nella lista
             for(Contatto c : contatti) {
-                // c.toString() restituisce "Nome: Numero" (definito nel Modello)
                 areaContatti.append(" " + c.toString() + "\n");
-                areaContatti.append(" -------------------------\n"); // Separatore estetico
+                areaContatti.append(" -------------------------\n"); 
             }
         }
-		
-//		areaContatti.setText("NOME\tNUMERO TELEFONICO\n");
-//		for (Contatto c : contatti) {
-//			areaContatti.append(c.getNome() + "\t" + c.getNumeroTel() + "\n");
-//		}
 
 	}
 }

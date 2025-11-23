@@ -30,7 +30,7 @@ public class ControlloRubrica implements ActionListener {
 		if (source.getText().equals("Aggiungi")) {
 			String[] inputs = new DialogoContatto().getInputs("Inserisci dati del contatto: ");
 
-			if (inputs != null) {
+			if (inputs != null && !inputs[0].isEmpty()) {
 				try {
 					// [0]=nome e [1]=numero telefonico
 					int risultato = model.aggiungi(inputs[0], inputs[1]);
@@ -40,6 +40,8 @@ public class ControlloRubrica implements ActionListener {
 					} else if (risultato == -1) {
 						JOptionPane.showMessageDialog(null, "Rubrica piena");
 					}
+
+					view.aggiorna();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -58,6 +60,7 @@ public class ControlloRubrica implements ActionListener {
 					if (!risultato.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Nessun contatto trovato");
 					}
+					view.aggiorna();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -76,13 +79,14 @@ public class ControlloRubrica implements ActionListener {
 					if (!risultato) {
 						JOptionPane.showMessageDialog(null, "Nessun contatto trovato per l'eliminazione");
 					}
+					else {
+						JOptionPane.showMessageDialog(null, "Eliminazione completata");
+					}
+					view.aggiorna();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
 		}
-
-		// Aggiornamento della GUI
-		view.aggiorna();
 	}
 }
