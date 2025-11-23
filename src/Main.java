@@ -6,7 +6,7 @@ public class Main {
 	private static GestoreRubriche R = new GestoreRubriche();
 
 	public static void main(String[] args) {
-		R.createRubrica("Amici", 6);
+		R.createRubrica("Amici", 10);
 
 		try {
 			Rubrica Amici = R.selezionaRubrica("Amici");

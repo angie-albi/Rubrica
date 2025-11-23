@@ -41,19 +41,22 @@ public class ContentPanel extends JPanel {
 		aggiorna();
 	}
 
+	public void aggiorna(String filtro) {
+		areaContatti.setText("");
+	    
+		ArrayList<Contatto> contatti = model.ricerca(filtro);
+
+	    if (contatti.isEmpty()) {
+	        areaContatti.setText("\n\t(Nessun contatto trovato)");
+	    } else {
+	        for(Contatto c : contatti) {
+	            areaContatti.append(" " + c.toString() + "\n");
+	            areaContatti.append(" -------------------------\n");
+	        }
+	    }
+	}
+
 	public void aggiorna() {
-		areaContatti.setText(""); 
-		
-		ArrayList<Contatto> contatti = model.ricerca("");
-
-		if (contatti.isEmpty()) {
-            areaContatti.setText("\n  (Nessun contatto presente)");
-        } else {
-            for(Contatto c : contatti) {
-                areaContatti.append(" " + c.toString() + "\n");
-                areaContatti.append(" -------------------------\n"); 
-            }
-        }
-
+	    aggiorna("");
 	}
 }

@@ -28,7 +28,7 @@ public class ControlloRubrica implements ActionListener {
 
 		// Aggiungi
 		if (source.getText().equals("Aggiungi")) {
-			String[] inputs = new DialogoContatto().getInputs("Inserisci dati del contatto: ");
+			String[] inputs = new DialogoContatto().getInputs("Inserisci dati del contatto ");
 
 			if (inputs != null && !inputs[0].isEmpty()) {
 				try {
@@ -49,40 +49,28 @@ public class ControlloRubrica implements ActionListener {
 		}
 		// Cerca
 		else if (source.getText().equals("Cerca")) {
-			String[] inputs = new DialogoContatto().getContatto("Inserisci il nome del contatto da cercare: ");
+			String nomeCerc = JOptionPane.showInputDialog(null, "Nome: ", "Inserisci il contatto da cercare ", JOptionPane.QUESTION_MESSAGE);
 
-			if (inputs != null) {
-				String nomeCerc = inputs[0];
-
-				try {
-					ArrayList<Contatto> risultato = model.ricerca(nomeCerc);
-
-					if (!risultato.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Nessun contatto trovato");
-					}
-					view.aggiorna();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
+			if(nomeCerc != null) {
+				view.aggiorna(nomeCerc);
 			}
 		}
 		// Elimina - nome
 		else if (source.getText().equals("Elimina - Nome")) {
-			String[] inputs = new DialogoContatto().getInputs("Inserisci il nome del contatto da eliminare: ");
+			String nomeElim = JOptionPane.showInputDialog(null, "Nome: ", "Inserisci il contatto da eliminare ", JOptionPane.QUESTION_MESSAGE);
 
-			if (inputs != null) {
-				String nomeDelete = inputs[0];
+			if (nomeElim != null && !nomeElim.isEmpty()) {
 
 				try {
-					boolean risultato = model.elimina(nomeDelete);
+					boolean risultato = model.elimina(nomeElim);
 
 					if (!risultato) {
 						JOptionPane.showMessageDialog(null, "Nessun contatto trovato per l'eliminazione");
+						view.aggiorna();
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Eliminazione completata");
 					}
-					view.aggiorna();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
