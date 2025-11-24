@@ -9,10 +9,10 @@ import modello.Rubrica;
 public class RubricaGUI extends JFrame{
 	
 	public RubricaGUI(Rubrica model) {
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			
 			setBounds(100, 100, 550, 350);
-			setTitle("Rubrica");
+			setTitle("Rubrica: " + model.getNome());
 			
 			JPanel rubricaPanel = (JPanel) new RubricaPanel(model);
 			setContentPane(rubricaPanel);
