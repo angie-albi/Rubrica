@@ -37,7 +37,7 @@ public class ControlloRubrica implements ActionListener {
 		if (source.getText().equals("Aggiungi")) {
 			String[] inputs = new DialogoContatto().getInputs("Inserisci dati del contatto ");
 
-			if (inputs != null && !inputs[0].isEmpty()) {
+			if (inputs != null && !inputs[0].isEmpty() && !inputs[1].isEmpty()) {
 				try {
 					// [0]=nome e [1]=numero telefonico
 					int risultato = model.aggiungi(inputs[0], inputs[1]);
@@ -59,7 +59,7 @@ public class ControlloRubrica implements ActionListener {
 		}
 		// Cerca
 		else if (source.getText().equals("Cerca")) {
-			String nomeCerc = JOptionPane.showInputDialog(null, "Nome: ", "Inserisci il contatto da cercare ", JOptionPane.QUESTION_MESSAGE);
+			String nomeCerc = JOptionPane.showInputDialog(null, "Nome del contatto da cercare: ", "Cerca ", JOptionPane.QUESTION_MESSAGE);
 
 			if(nomeCerc != null) {
 				view.aggiorna(nomeCerc);
@@ -68,12 +68,11 @@ public class ControlloRubrica implements ActionListener {
 				}
 			}
 		}
-		// Elimina - nome
-		else if (source.getText().equals("Elimina - Nome")) {
-			String nomeElim = JOptionPane.showInputDialog(null, "Nome: ", "Inserisci il contatto da eliminare ", JOptionPane.QUESTION_MESSAGE);
+		// Elimina
+		else if (source.getText().equals("Elimina")) {
+			String nomeElim = JOptionPane.showInputDialog(null, "Nome del contatto da eliminare: ", "Eliminare", JOptionPane.QUESTION_MESSAGE);
 
 			if (nomeElim != null && !nomeElim.isEmpty()) {
-
 				try {
 					boolean risultato = model.elimina(nomeElim);
 
@@ -89,6 +88,33 @@ public class ControlloRubrica implements ActionListener {
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
+				}
+			}
+		}
+		// Modifica
+		else if(source.getText().equals("Modifica")) {
+			String nomeEdit = JOptionPane.showInputDialog(null, "Nome del contatto da modificare: ", "Modifica ", JOptionPane.QUESTION_MESSAGE);
+			
+			if (nomeEdit != null && !nomeEdit.isEmpty()) {
+				String[] nuoviDati = new DialogoContatto().getInputs("Inserisci i NUOVI dati per " + nomeEdit);
+				
+				if(nuoviDati != null) {
+					try {
+						boolean risultato = model.modificaContatto(nomeEdit, nuoviDati[0], nuoviDati[1]);
+	
+						if (!risultato) {
+							JOptionPane.showMessageDialog(null, "Nessun contatto trovato per la modifica");
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Modifica completata");
+							view.aggiorna();
+							if(opsView != null) {
+								opsView.mostraBottoneReset(false);
+							}
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}
 			}
 		}
