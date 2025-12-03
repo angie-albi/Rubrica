@@ -102,7 +102,7 @@ Il progetto è configurato per **Eclipse**, ma è compatibile con qualsiasi IDE 
 
 1.  **Clona la repository:**
     ```bash
-    git clone [https://github.com/angie-albi/Rubrica.git](https://github.com/angie-albi/Rubrica.git)
+    git clone https://github.com/angie-albi/GestoreRubriche.git
     ```
 2.  **Importa in Eclipse:**
     * `File` > `Open Projects from File System...`
