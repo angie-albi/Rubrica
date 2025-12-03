@@ -1,11 +1,12 @@
 <div align="center">
-  <h1>📒 Rubrica Digitale</h1>
+  <h1>📒 Gestore Rubriche Digitali</h1>
   <p>
-    Un'applicazione Java efficiente per la gestione e l'organizzazione dei contatti personali.
+    Un'applicazione Java completa con interfaccia grafica (GUI) per la gestione organizzata di rubriche e contatti multipli.
     <br />
     <br />
     <img src="https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk" alt="Java Version">
-    <img src="https://img.shields.io/badge/IDE-Eclipse-blue?style=for-the-badge&logo=eclipseide" alt="Eclipse">
+    <img src="https://img.shields.io/badge/GUI-Swing-red?style=for-the-badge&logo=java" alt="Swing">
+    <img src="https://img.shields.io/badge/Architecture-MVC-blueviolet?style=for-the-badge" alt="MVC Pattern">
     <img src="https://img.shields.io/badge/Test-JUnit_5-25A162?style=for-the-badge&logo=junit5" alt="JUnit">
   </p>
 </div>
@@ -14,89 +15,102 @@
 
 ## 🧐 Di cosa si tratta?
 
-Questo progetto implementa una **Rubrica** contatti con dimensione personalizzabile. È progettata per gestire l'archiviazione in memoria di contatti (in formato stringa, es. "Nome = Numero") con controlli sui duplicati e limiti di capienza.
+Questo progetto è un'evoluzione della classica rubrica telefonica. Non si limita a salvare contatti, ma permette di gestire **intere collezioni di rubriche** (es. "Lavoro", "Amici", "Famiglia") tramite un'interfaccia grafica intuitiva basata su **Java Swing**.
 
-Le funzionalità principali includono:
-* **Gestione Duplicati:** Impedisce l'inserimento di contatti già presenti.
-* **Ricerca per Prefisso:** Trova rapidamente i contatti che iniziano con una specifica stringa.
-* **Pulizia Avanzata:** Permette di eliminare gruppi di contatti tramite ricerca o svuotare l'intera rubrica.
+Il software è progettato seguendo il pattern architetturale **MVC (Model-View-Controller)**, garantendo una netta separazione tra la logica dei dati, la visualizzazione e la gestione degli eventi.
 
 ---
 
-## 🛠️ Funzionalità del Codice
+## ✨ Funzionalità Principali
 
-Il core del progetto è la classe `Rubrica` (package `rubrica`). Ecco i metodi principali disponibili:
+### 📂 Gestione Rubriche (Manager)
+* **Multi-Rubrica:** Crea, rinomina ed elimina intere rubriche.
+* **Capienza Personalizzata:** Definisci un limite massimo di contatti per ogni rubrica alla creazione.
+* **Persistenza in Memoria:** I dati vengono gestiti dinamicamente durante l'esecuzione.
 
-- `aggiungi(String contatto)`: Inserisce un nuovo contatto. Restituisce `1` se aggiunto, `0` se duplicato, `-1` se la rubrica è piena.
-- `ricerca(String prefisso)`: Restituisce un `ArrayList` con tutti i contatti che iniziano con il prefisso indicato.
-- `elimina(String prefisso)`: Rimuove tutti i contatti che corrispondono al criterio di ricerca. Restituisce `true` se ha eliminato qualcosa.
-- `svuota()`: Rimuove istantaneamente tutti i contatti dalla rubrica.
-- `numEl()`: Restituisce il numero attuale di contatti presenti.
+### 👤 Gestione Contatti
+* **CRUD Completo:**
+    * **C**reate: Aggiungi nuovi contatti (Nome e Numero).
+    * **R**ead: Visualizza la lista e cerca contatti per nome.
+    * **U**pdate: Modifica nome e numero di contatti esistenti.
+    * **D**elete: Rimuovi contatti specifici.
+* **Integrità dei Dati:** Controllo automatico dei duplicati e validazione degli input.
+
+---
+
+## 🏗️ Architettura del Progetto (MVC)
+
+Il codice è organizzato in tre package principali per favorire la manutenibilità:
+
+1.  **`modello`**: Contiene la logica di business.
+    * `Contatto`: Oggetto che rappresenta il singolo dato (Nome, Numero).
+    * `Rubrica`: Gestisce una lista di contatti e i limiti di capienza.
+    * `GestoreRubriche`: Il punto di ingresso principale che amministra la collezione di rubriche.
+2.  **`GUI.vista`**: Gestisce l'interfaccia utente.
+    * Pannelli modulari (`ContentPanel`, `OpsPanel`, `ListaRubrichePanel`) per costruire la finestra.
+    * Finestre di dialogo (`DialogoContatto`) per l'input utente.
+3.  **`GUI.controllo`**: Gestisce l'interazione tra utente e sistema.
+    * Ascolta i click sui bottoni e invoca i metodi del Modello, aggiornando di conseguenza la Vista.
 
 ---
 
 ## 🚀 Esempio di Utilizzo
 
-Ecco come utilizzare la classe nel tuo codice:
+L'applicazione si avvia tramite la classe `Main`, che inizializza il gestore e lancia l'interfaccia grafica.
 
 ```java
-import rubrica.Rubrica;
-import java.util.ArrayList;
+import GUI.GestoreGUI;
+import modello.GestoreRubriche;
 
 public class Main {
     public static void main(String[] args) {
-        // 1. Crea una rubrica chiamata "Amici" con max 10 posti
-        Rubrica r = new Rubrica("Amici", 10);
+        // 1. Inizializzazione del gestore (Backend)
+        GestoreRubriche gestore = new GestoreRubriche();
 
-        // 2. Aggiungi contatti
-        r.aggiungi("Mario Rossi = 3331234567");
-        r.aggiungi("Marco Bianchi = 3339876543");
+        // 2. Creazione dati di esempio
+        gestore.createRubrica("Amici", 10);
+        gestore.createRubrica("Lavoro", 50);
 
-        // 3. Cerca tutti i contatti che iniziano per "Ma"
-        ArrayList<String> risultati = r.ricerca("Ma");
-        for(String s : risultati) {
-            System.out.println(s); 
-        }
-        // Output previsto: Mario Rossi..., Marco Bianchi...
-
-        // 4. Elimina tutti i contatti che iniziano per "Marco"
-        boolean eliminato = r.elimina("Marco");
-        
-        // 5. Svuota tutto
-        r.svuota();
+        // 3. Avvio dell'Interfaccia Grafica (Frontend)
+        // È buona norma avviare Swing nell'Event Dispatch Thread
+        javax.swing.SwingUtilities.invokeLater(() -> 
+            new GestoreGUI(gestore)
+        );
     }
 }
 ```
 
 ---
 
-## 🧪 Testing
+## 🧪 Testing e Qualità
 
-Il progetto include una suite di test unitari completa realizzata con **JUnit 5** per garantire l'affidabilità del codice.
-Il file `RubricaTest.java` copre i seguenti scenari:
+La stabilità del progetto è garantita da una suite di test unitari sviluppata con **JUnit 5**.
+I test coprono:
 
-* ✅ Costruttore e inizializzazione corretta.
-* ✅ Aggiunta corretta e gestione del limite (`MAX_DIM`).
-* ✅ Tentativo di aggiunta di duplicati (non permessi).
-* ✅ Ricerca (su rubrica vuota, parziale o piena).
-* ✅ Cancellazione (singola, multipla, primo/ultimo elemento).
+* ✅ **Logica Rubrica:** Aggiunta, limiti di dimensione (`MAX_DIM`), gestione duplicati.
+* ✅ **Ricerca e Cancellazione:** Test su casi limite (rubrica vuota, piena, eliminazione parziale).
+* ✅ **Integrità Dati:** Verifica della corretta modifica dei contatti.
+* ✅ **Gestore:** Test sulla creazione e rinomina delle rubriche.
 
-Per avviare i test, esegui la classe `RubricaTest` come **JUnit Test** dal tuo IDE.
+Per eseguire i test: Tasto destro sulla cartella `src/modello/test` > `Run As` > `JUnit Test`.
 
 ---
 
 ## ⚙️ Installazione e Setup
 
-Poiché il progetto è configurato come progetto **Eclipse** (include `.project` e `.classpath`):
+Il progetto è configurato per **Eclipse**, ma è compatibile con qualsiasi IDE Java.
 
-1.  Clona questa repository sul tuo computer:
+1.  **Clona la repository:**
     ```bash
-    git clone https://github.com/angie-albi/Rubrica.git   
+    git clone [https://github.com/angie-albi/Rubrica.git](https://github.com/angie-albi/Rubrica.git)
     ```
-2.  Apri **Eclipse**.
-3.  Vai su `File` > `Open Projects from File System...`.
-4.  Clicca su `Directory` e seleziona la cartella scaricata.
-5.  Clicca su `Finish`.
+2.  **Importa in Eclipse:**
+    * `File` > `Open Projects from File System...`
+    * Seleziona la cartella scaricata.
+    * Clicca su `Finish`.
+3.  **Esegui:**
+    * Apri `src/Main.java`.
+    * Premi `Run`.
 
 ---
 
